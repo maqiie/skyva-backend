@@ -1,0 +1,2 @@
+class Jewelry < ApplicationRecord
+end
