@@ -4,12 +4,8 @@ one:
   username: MyString
   email: MyString
   password: MyString
-  created_at: MyString
-  updated_at: MyString
 
 two:
   username: MyString
   email: MyString
   password: MyString
-  created_at: MyString
-  updated_at: MyString
