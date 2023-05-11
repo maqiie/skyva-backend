@@ -1,7 +1,4 @@
 puts "Loading Jewelry model"
+class Jewelry < ApplicationRecord
 
-class JewelryController < ApplicationController
-  def index
-    @jewelries = Jewelry.all
-  end
 end
