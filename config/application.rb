@@ -1,5 +1,5 @@
 require_relative "boot"
-
+require "active_storage/engine"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -17,6 +17,15 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+
+# Enable CORS
+config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end
 
 module SkvaBackend
   class Application < Rails::Application

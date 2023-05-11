@@ -4,6 +4,7 @@ class CreateJewelries < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :price
       t.string :description
+      t.string :image
 
       t.timestamps
     end

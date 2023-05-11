@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
      #JEWELRY
   get '/jewelry', to: 'jewelry#index'
-
-
+  post '/jewelry', to: 'jewelry#create'
 end
 
