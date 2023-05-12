@@ -1,2 +1,6 @@
 class User < ApplicationRecord
-end
+    has_secure_password
+  
+    # Other model code...
+  end
+  
