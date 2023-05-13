@@ -6,7 +6,8 @@ Rails.application.routes.draw do
      #JEWELRY
   get '/jewelry', to: 'jewelry#index'
   post '/jewelry', to: 'jewelry#create'
-  delete '/jewelry', to: 'jewelry#destroy'
+  delete 'jewelry/:id', to: 'jewelry#destroy', as: 'delete_jewelry'
+# /  delete '/jewelry', to: 'jewelry#destroy'
 
 
 

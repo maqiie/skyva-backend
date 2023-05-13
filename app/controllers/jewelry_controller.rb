@@ -27,8 +27,10 @@ class JewelryController < ApplicationController
   def destroy
     @jewelry = Jewelry.find(params[:id])
     @jewelry.destroy
-    redirect_to jewelries_path
+    puts 'Jewelry item was successfully deleted.'
+  
   end
+  
 
   private
 
