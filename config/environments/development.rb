@@ -47,6 +47,12 @@ Rails.application.configure do
 
 
   # Raises error for missing translations.
+
+
+  config.active_storage.service = :local
+
+
+
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.

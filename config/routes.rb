@@ -6,6 +6,7 @@ Rails.application.routes.draw do
      #JEWELRY
   get '/jewelry', to: 'jewelry#index'
   post '/jewelry', to: 'jewelry#create'
+  delete '/jewelry', to: 'jewelry#destroy'
 
 
 
@@ -17,5 +18,6 @@ Rails.application.routes.draw do
   # Custom routes for password reset
   post '/reset_password', to: 'users#reset_password'
   put '/update_password', to: 'users#update_password'
+
 end
 
