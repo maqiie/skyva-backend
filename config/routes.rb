@@ -20,5 +20,14 @@ Rails.application.routes.draw do
   post '/reset_password', to: 'users#reset_password'
   put '/update_password', to: 'users#update_password'
 
+
+
+  #cart
+  # Other routes...
+
+  post 'add_item', to: 'cart#add_item'
+  post 'remove_item', to: 'cart#remove_item'
+  get 'calculate_total_price', to: 'cart#calculate_total_price'
+
 end
 
