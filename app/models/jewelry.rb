@@ -1,6 +1,6 @@
 class Jewelry < ApplicationRecord
   has_one_attached :image
-  belongs_to :cart
+  has_many :cart_items, as: :item
   attribute :name, :string
   attribute :title, :string
 end

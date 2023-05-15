@@ -26,6 +26,7 @@ module SkvaBackend
     config.load_defaults 7.0
 
 
+    config.middleware.use ActionDispatch::Session::CookieStore
 
 
 

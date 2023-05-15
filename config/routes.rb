@@ -24,8 +24,11 @@ Rails.application.routes.draw do
 
   #cart
   # Other routes...
+  post 'add_item', to: 'carts#add_item', as: 'add_item'
 
-  post 'add_item', to: 'cart#add_item'
+
+  # post 'add_item', to: 'carts#add_item'
+ delete 'remove_item', to: 'carts#remove_item'
   post 'remove_item', to: 'cart#remove_item'
   get 'calculate_total_price', to: 'cart#calculate_total_price'
 
