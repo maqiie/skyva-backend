@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   #cart
   # Other routes...
-  post 'add_item', to: 'carts#add_item', as: 'add_item'
+  post 'add_to_cart', to: 'jewelry#add_to_cart', as: 'add_to_cart'
 
 
   # post 'add_item', to: 'carts#add_item'
