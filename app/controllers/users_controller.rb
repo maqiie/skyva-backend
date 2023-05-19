@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   #  before_action :authorize_request, except: :create
     # skip_before_action :authorize_request, only: [:create, :reset_password, :update_password, :login]
     # class UsersController < ApplicationController
-     skip_before_action :verify_authenticity_token, only: [:create]
+     skip_before_action :verify_authenticity_token, only: [:create, :login]
     
 
     def show
@@ -44,15 +44,31 @@ class UsersController < ApplicationController
       end
     end
   
+    # def login
+    #   user = User.find_by(email: params[:email])
+    #   if user&.authenticate(params[:password])
+    #     token = JWT.encode({ user_id: user.id, role: user.role }, "secret")
+    #     render json: { user: user, token: token }
+    #   else
+    #     render json: { error: 'Invalid email or password' }, status: :unauthorized
+    #   end
+    # end
     def login
       user = User.find_by(email: params[:email])
+    
       if user&.authenticate(params[:password])
         token = JWT.encode({ user_id: user.id, role: user.role }, "secret")
-        render json: { user: user, token: token }
+    
+        if user.email == 'admin@example.com' # Replace with the specific admin email
+          render json: { user: user, token: token, redirect_to: '/admin' }
+        else
+          render json: { user: user, token: token, redirect_to: '/' }
+        end
       else
         render json: { error: 'Invalid email or password' }, status: :unauthorized
       end
     end
+    
   
     private
       
