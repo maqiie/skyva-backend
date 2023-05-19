@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+#USERS  
+post '/signup', to: 'users#create'
+
+
      #JEWELRY
   get '/jewelry', to: 'jewelry#index'
   post '/jewelry', to: 'jewelry#create'

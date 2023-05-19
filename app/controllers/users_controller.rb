@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
+  before_action :authorize_request, except: :create
     skip_before_action :authorize_request, only: [:create, :reset_password, :update_password, :login]
-    
+
+
+
+
     def show
       user = User.find_by(id: @current_user.id)
       render json: user
