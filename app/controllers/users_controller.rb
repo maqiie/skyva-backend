@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: :create
-    skip_before_action :authorize_request, only: [:create, :reset_password, :update_password, :login]
-
-
-
+  #  before_action :authorize_request, except: :create
+    # skip_before_action :authorize_request, only: [:create, :reset_password, :update_password, :login]
+    # class UsersController < ApplicationController
+     skip_before_action :verify_authenticity_token, only: [:create]
+    
 
     def show
       user = User.find_by(id: @current_user.id)
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     private
       
     def user_params
-      params.permit(:fullname, :email, :password, :role, :password_confirmation)
+      params.require(:user).permit(:fullname, :email, :password,:username, :role, :password_confirmation)
     end
   end
   
