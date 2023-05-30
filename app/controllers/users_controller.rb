@@ -11,17 +11,24 @@ class UsersController < ApplicationController
     end 
   
     def create
+      user = User.find_by(email: user_params[:email])
+    
+      if user
+        render json: { errors: ['User already exists'] }, status: :unprocessable_entity
+      else
         user = User.new(user_params)
-        user.role = params[:role] || 'user' # Set a default role if 'role' parameter is not provided
-      
+        user.role = params[:role] || (user.email == 'admin@example.com' ? 'admin' : 'user')
+    
         if user.save
-          token = JWT.encode({ user_id: user.id, role: user.role }, "secret")
+          token = JWT.encode({ user_id: user.id, role: user.role }, 'secret')
           render json: { user: user, token: token }, status: :created
         else
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
       end
-      
+    end
+    
+    
   
     def reset_password
       user = User.find_by(email: params[:email])
@@ -44,32 +51,25 @@ class UsersController < ApplicationController
       end
     end
   
-    # def login
-    #   user = User.find_by(email: params[:email])
-    #   if user&.authenticate(params[:password])
-    #     token = JWT.encode({ user_id: user.id, role: user.role }, "secret")
-    #     render json: { user: user, token: token }
-    #   else
-    #     render json: { error: 'Invalid email or password' }, status: :unauthorized
-    #   end
-    # end
+
     def login
       user = User.find_by(email: params[:email])
     
       if user&.authenticate(params[:password])
-        token = JWT.encode({ user_id: user.id, role: user.role }, "secret")
+        token = JWT.encode({ user_id: user.id, role: user.email == 'admin@example.com' ? 'admin' : 'student' }, "secret")
     
         if user.email == 'admin@example.com' # Replace with the specific admin email
-          render json: { user: user, token: token, redirect_to: '/admin' }
+          render json: { user: user, token: token, isAdmin: true, redirect_to: '/admin' }
         else
-          render json: { user: user, token: token, redirect_to: '/' }
+          render json: { user: user, token: token, isAdmin: false, redirect_to: '/', role: 'student' }
         end
       else
         render json: { error: 'Invalid email or password' }, status: :unauthorized
       end
     end
     
-  
+    
+    
     private
       
     def user_params
