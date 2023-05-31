@@ -59,15 +59,16 @@ class UsersController < ApplicationController
         token = JWT.encode({ user_id: user.id, role: user.email == 'admin@example.com' ? 'admin' : 'student' }, "secret")
     
         if user.email == 'admin@example.com' # Replace with the specific admin email
+          puts user.inspect  # Output user object details to the console
           render json: { user: user, token: token, isAdmin: true, redirect_to: '/admin' }
         else
+          puts user.inspect  # Output user object details to the console
           render json: { user: user, token: token, isAdmin: false, redirect_to: '/', role: 'student' }
         end
       else
         render json: { error: 'Invalid email or password' }, status: :unauthorized
       end
     end
-    
     
     
     private
