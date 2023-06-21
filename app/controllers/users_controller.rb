@@ -50,22 +50,23 @@ class UsersController < ApplicationController
         end
       
   
-  def login
-    user = User.find_by(email: params[:email])
-  
-    if user&.authenticate(params[:password])
-      token = JWT.encode({ user_id: user.id, role: user.email == 'admin@example.com' ? 'admin' : 'student' }, 'secret')
-      @current_user = user # Set @current_user
-  
-      if user.email == 'admin@example.com'
-        render json: { user: user, token: token, isAdmin: true, redirect_to: '/admin' }
-      else
-        render json: { user: user, token: token, isAdmin: false, redirect_to: '/', role: 'student' }
-      end
-    else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
-    end
-  end
+        def login
+          user = User.find_by(email: params[:email])
+        
+          if user&.authenticate(params[:password])
+            token = JWT.encode({ user_id: user.id, role: user.email == 'admin@example.com' ? 'admin' : 'user' }, 'secret')
+            @current_user = user # Set @current_user
+        
+            if user.email == 'admin@example.com'
+              render json: { user: user, token: token, isAdmin: true, redirect_to: '/admin' }
+            else
+              render json: { user: user, token: token, isAdmin: false, redirect_to: '/', role: 'user' }
+            end
+          else
+            render json: { error: 'Invalid email or password' }, status: :unauthorized
+          end
+        end
+        
   
 
   def authorize_request
